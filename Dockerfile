@@ -1,6 +1,7 @@
 FROM alpine:3.7
 
-ENV CLAIR_SCANNER v8
+ENV CLAIR_SCANNER_GIT "https://github.com/arminc/clair-scanner.git"
+ENV CLAIR_SCANNER_VERSION "v8"
 
 ARG RUNTIME_DEPS="docker"
 ARG BUILD_DEPS="make go musl-dev git"
@@ -10,13 +11,13 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
     apk upgrade && \
     apk add --no-cache ${RUNTIME_DEPS} && \
     apk add --no-cache --virtual build-dependencies ${BUILD_DEPS} && \
+    mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
     export GOPATH=/go && \
     export PATH=${GOPATH}/bin:${PATH} && \
-    mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
     cd /go/src && \
-    git clone https://github.com/arminc/clair-scanner.git && \
+    git clone ${CLAIR_SCANNER_GIT} && \
     cd clair-scanner && \
-    git checkout ${CLAIR_SCANNER} && \
+    git checkout ${CLAIR_SCANNER_VERSION} && \
     go get -u github.com/golang/dep/cmd/dep && \
     make ensure && \
     make build && \
