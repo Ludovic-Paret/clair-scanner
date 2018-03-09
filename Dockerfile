@@ -11,9 +11,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
     apk upgrade && \
     apk add --no-cache ${RUNTIME_DEPS} && \
     apk add --no-cache --virtual build-dependencies ${BUILD_DEPS} && \
-    mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
     export GOPATH=/go && \
     export PATH=${GOPATH}/bin:${PATH} && \
+    mkdir -p ${GOPATH}/src ${GOPATH}/bin && \
     cd /go/src && \
     git clone ${CLAIR_SCANNER_GIT} && \
     cd clair-scanner && \
