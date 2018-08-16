@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
 ENV CLAIR_SCANNER_GIT "https://github.com/arminc/clair-scanner.git"
 ENV CLAIR_SCANNER_VERSION "v8"
